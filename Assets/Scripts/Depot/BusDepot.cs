@@ -279,6 +279,12 @@ public class BusDepot : MonoBehaviour
 
     public void ParkBus(GameObject busObject, int spotId)
     {
+        if (busObject == null)
+        {
+            Debug.LogWarning("Ein fehlendes Busobjekt kann nicht geparkt werden.");
+            return;
+        }
+
         var spot = GetParkingSpot(spotId);
         if (spot != null && !spot.isOccupied)
         {

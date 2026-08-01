@@ -19,6 +19,8 @@ public class RoadBuilder : MonoBehaviour
 
     public void BuildRoadsFromOSM(List<Vector3[]> roadPaths)
     {
+        if (roadPaths == null) return;
+
         foreach (var path in roadPaths)
         {
             BuildRoad(path, 6f);
@@ -27,7 +29,7 @@ public class RoadBuilder : MonoBehaviour
 
     public void BuildRoad(Vector3[] waypoints, float width)
     {
-        if (waypoints.Length < 2) return;
+        if (waypoints == null || waypoints.Length < 2 || width <= 0f) return;
 
         GameObject roadObj = new GameObject("Road");
         roadObj.transform.parent = transform;
@@ -74,7 +76,15 @@ public class RoadBuilder : MonoBehaviour
         meshFilter.mesh = roadMesh;
 
         MeshRenderer renderer = roadObj.AddComponent<MeshRenderer>();
-        Material roadMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        Shader roadShader = Shader.Find("Universal Render Pipeline/Lit");
+        if (roadShader == null)
+        {
+            Debug.LogError("Straße konnte nicht erstellt werden: URP/Lit-Shader fehlt.");
+            Destroy(roadObj);
+            return;
+        }
+
+        Material roadMat = new Material(roadShader);
         roadMat.color = new Color(0.5f, 0.5f, 0.5f);
         renderer.material = roadMat;
 

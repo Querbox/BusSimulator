@@ -41,17 +41,29 @@ public class OSMImporter : MonoBehaviour
 
     public void GenerateMapFromOSM(OSMData osmData)
     {
+        if (osmData == null)
+        {
+            Debug.LogError("OSM-Import abgebrochen: Es wurden keine Daten übergeben.");
+            return;
+        }
+
+        osmData.nodes ??= new List<OSMNode>();
+        osmData.ways ??= new List<OSMWay>();
         Debug.Log($"Starte OSM-Import: {osmData.nodes.Count} Nodes, {osmData.ways.Count} Ways");
-        
+
+        nodeMap.Clear();
+
         // Nodes in Map laden
         foreach (var node in osmData.nodes)
         {
+            if (node == null) continue;
             nodeMap[node.id] = node;
         }
 
         // Ways verarbeiten
         foreach (var way in osmData.ways)
         {
+            if (way == null) continue;
             ProcessWay(way);
         }
 
@@ -60,6 +72,7 @@ public class OSMImporter : MonoBehaviour
 
     private void ProcessWay(OSMWay way)
     {
+        if (way.nodes == null || way.tags == null) return;
         // Bestimme Typ des Ways basierend auf Tags
         string wayType = DetermineWayType(way.tags);
 
@@ -97,6 +110,8 @@ public class OSMImporter : MonoBehaviour
 
     private void CreateVisualWay(long wayId, List<Vector3> points, string wayType)
     {
+        if (wayType != "road" && wayType != "building" && wayType != "water") return;
+
         GameObject wayObj = new GameObject($"Way_{wayId}_{wayType}");
         wayObj.transform.parent = transform;
 

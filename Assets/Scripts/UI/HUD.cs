@@ -13,19 +13,19 @@ public class HUD : MonoBehaviour
     
     private void Update()
     {
-        if (speedText != null)
+        if (speedText != null && busController != null)
         {
             float speed = busController.GetCurrentSpeed();
             speedText.text = $"Geschwindigkeit: {speed:F1} km/h";
         }
         
-        if (passengerText != null)
+        if (passengerText != null && busController != null)
         {
             int passengers = busController.GetPassengerCount();
             passengerText.text = $"Fahrgäste: {passengers}";
         }
         
-        if (timeText != null)
+        if (timeText != null && GameManager.Instance != null)
         {
             float gameTime = GameManager.Instance.GetGameTime();
             int minutes = (int)(gameTime / 60f);
