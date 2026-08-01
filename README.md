@@ -16,7 +16,7 @@ Ein realistischer 3D-Bus-Simulator mit echten Straßendaten und Haltestellen.
 - **Sprache**: C#
 - **Karten-Daten**: OpenStreetMap
 - **3D-Grafik**: Universal Render Pipeline 17.5.0
-- **Eingabe**: Unity Input System 1.14.0
+- **Eingabe**: Unity Input System (Version siehe `Packages/manifest.json`)
 
 Die verbindliche Versionsbasis steht in `ProjectSettings/ProjectVersion.txt` und
 `Packages/manifest.json`. Runtime-Materialien verwenden URP/Lit, Eingaben laufen
