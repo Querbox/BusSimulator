@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!129 &1
+PlayerSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 27
+  productGUID: 00000000000000000000000000000000
+  companyName: DefaultCompany
+  productName: BusSimulator
+  m_BuildTargetBatching:
+  - m_BuildTarget: Standalone
+    m_StaticBatching: 1
+    m_DynamicBatching: 0
+  - m_BuildTarget: Server
+    m_StaticBatching: 1
+    m_DynamicBatching: 0
+  m_ActiveInputHandler: 1

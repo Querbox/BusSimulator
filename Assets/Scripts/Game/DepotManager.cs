@@ -90,13 +90,13 @@ public class DepotManager : MonoBehaviour
         if (gameStarted) return;
 
         // Bus-Auswahl
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (InputSystemControls.WasNumberPressed(1))
             SelectBus(0);
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (InputSystemControls.WasNumberPressed(2))
             SelectBus(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (InputSystemControls.WasNumberPressed(3))
             SelectBus(2);
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (InputSystemControls.WasEscapePressed())
             Debug.Log("Spiel abgebrochen");
     }
 
