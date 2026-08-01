@@ -28,10 +28,11 @@ public class BusDepot : MonoBehaviour
         public float rowDistance = 8f;
     }
 
-    [SerializeField] private DepotConfig config;
+    [SerializeField] private DepotConfig config = new DepotConfig();
     private List<ParkingSpot> parkingSpots = new List<ParkingSpot>();
     private GameObject depotContainer;
     private GameObject buildingStructure;
+    private bool isInitialized;
 
     private void Start()
     {
@@ -40,6 +41,16 @@ public class BusDepot : MonoBehaviour
 
     public void InitializeDepot()
     {
+        if (isInitialized)
+        {
+            return;
+        }
+
+        if (config == null)
+        {
+            config = new DepotConfig();
+        }
+
         // Haupt-Container
         depotContainer = new GameObject(config.depotName);
         depotContainer.transform.position = config.depotCenter;
@@ -56,6 +67,7 @@ public class BusDepot : MonoBehaviour
         // Werkstatt
         CreateMaintenanceArea();
 
+        isInitialized = true;
         Debug.Log($"Depot '{config.depotName}' initialisiert mit {config.totalParkingSpots} Parkplätzen");
     }
 
