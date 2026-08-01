@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 0343b2d636794d4eb924cb0ad3e34a03
+    path: Assets/BusSimulator/Scenes/Start.unity
+    guid: 7cc29d25a1df4c67b022df86623408fe
   m_configObjects: {}
