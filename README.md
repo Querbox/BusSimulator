@@ -1,84 +1,50 @@
-# Bus Simulator 3D
+# Bus Simulator
 
-Ein realistischer 3D-Bus-Simulator mit echten Straßendaten und Haltestellen.
+Ein sauberer Neustart für eine realistische Bus-Simulation im Stil klassischer Omnibus-Simulatoren. Das Projekt wird **schrittweise** entwickelt; der erste Meilenstein ist bewusst klein, nachvollziehbar und auf einem MacBook ausführbar.
 
-## Features
+## Meilenstein 1: Fahrbarer Prototyp
 
-- 🚌 Realistische Bus-Fahrdynamik
-- 🗺️ Echte Straßendaten aus OpenStreetMap
-- 👥 Fahrgäste aufsammeln und absetzen
-- ⏰ Fahrpläne einhalten
-- 🎮 Immersive 3D-Perspektive
+Der aktuelle Stand enthält:
 
-## Technologie
+- ein minimales Unity-6-Projekt ohne fremde Assets,
+- eine automatisch erzeugte Teststrecke,
+- einen physikbasierten Platzhalter-Bus,
+- eine nachlaufende Kamera,
+- eine kleine Anzeige für Geschwindigkeit und Steuerung.
 
-- **Engine**: Unity 6.5 (6000.5.6f1, 2026 Supported Release)
-- **Sprache**: C#
-- **Karten-Daten**: OpenStreetMap
-- **3D-Grafik**: Universal Render Pipeline 17.5.0
-- **Eingabe**: Unity Input Manager
+## Auf dem MacBook starten
 
-Die verbindliche Versionsbasis steht in `ProjectSettings/ProjectVersion.txt` und
-`Packages/manifest.json`. Runtime-Materialien verwenden URP/Lit, Eingaben laufen
-über Unitys integrierten Input Manager und Rigidbody-Bewegungen werden in
-`FixedUpdate` über die aktuelle Unity-6-Physik-API ausgeführt.
+1. [Unity Hub](https://unity.com/download) installieren.
+2. Über **Installs → Install Editor** die in `ProjectSettings/ProjectVersion.txt` angegebene Unity-Version installieren. Das Modul **Mac Build Support** genügt für diesen Prototyp.
+3. In Unity Hub **Add → Add project from disk** wählen und diesen Ordner öffnen.
+4. `Assets/BusSimulator/Scenes/Prototype.unity` öffnen.
+5. Oben auf **Play** klicken.
 
-## Projekt-Struktur
+### Steuerung
 
-```
-BusSimulator/
-├── Assets/
-│   ├── Scripts/
-│   │   ├── Bus/
-│   │   ├── GameManager/
-│   │   ├── Map/
-│   │   ├── Passenger/
-│   │   └── UI/
-│   ├── Models/
-│   ├── Scenes/
-│   ├── Materials/
-│   └── Data/
-├── Data/
-│   └── map_export.osm
-├── Docs/
-└── ProjectSettings/
+| Aktion | Tasten |
+| --- | --- |
+| Beschleunigen / Bremsen | `W` / `S` oder Pfeiltasten |
+| Lenken | `A` / `D` oder Pfeiltasten |
+| Handbremse | Leertaste |
+| Zurücksetzen | `R` |
+
+> Auf macOS fragt Unity beim ersten Start eventuell nach Zugriffsrechten für den Projektordner. Diese müssen erlaubt werden, damit Unity die `Library` erzeugen kann.
+
+## Projektstruktur
+
+```text
+Assets/BusSimulator/Runtime/  Spiellogik
+Assets/BusSimulator/Scenes/   Startszene
+Packages/                     reproduzierbare Unity-Pakete
+ProjectSettings/              Editor- und Projekteinstellungen
 ```
 
-## Setup
+## Nächste Schritte
 
-1. Unity 6.5 (6000.5.6f1) installieren. Diese exakte Editorversion entspricht der eingecheckten Projektkonfiguration.
-2. Project clonen: `git clone <repo>`
-3. In Unity Hub über **Add project from repository** `Querbox/BusSimulator` und Branch `main` auswählen oder den geklonten Ordner öffnen. Unity erkennt das Repository durch `ProjectSettings/ProjectVersion.txt` automatisch als Unity-Projekt.
-4. In Unity öffnen
-5. Scene laden: `Assets/Scenes/Main.unity`
-6. Play drücken! 🎮
+1. Radaufhängung und Antriebsstrang mit `WheelCollider` umsetzen.
+2. Ein erstes modulares Busmodell mit Fahrerplatz, Türen und Instrumenten erstellen.
+3. Haltestellen, Fahrplan und Linienlogik ergänzen.
+4. Danach Fahrgäste, KI-Verkehr, Wetter und Kartenwerkzeuge aufbauen.
 
-## Fehlerbehebung: Paket- und Compiler-Cache
-
-Wenn Unity meldet, dass unveränderliche Pakete unerwartet geändert wurden,
-oder wenn `UnityEngine.InputSystem` beziehungsweise `UnityEngine.UI` trotz der
-Einträge in `Packages/manifest.json` nicht gefunden werden, ist in der Regel der
-generierte lokale Paket- oder Bee-Cache beschädigt. Der fehlende
-`updates.txt`-Hinweis ist dabei ein Folgefehler des fehlgeschlagenen
-Kompilierungslaufs.
-
-1. Unity und Unity Hub für dieses Projekt schließen.
-2. Im Projektordner ausführen:
-
-   ```bash
-   ./Tools/reset-unity-package-cache.sh
-   ```
-
-3. Das Projekt mit der in `ProjectSettings/ProjectVersion.txt` angegebenen
-   Editorversion erneut öffnen und die Wiederherstellung sowie den vollständigen
-   Asset-Import abwarten.
-
-Das Skript entfernt ausschließlich den ignorierten, von Unity erzeugten
-`Library`-Ordner. Projektinhalte unter `Assets`, die Paketanforderungen unter
-`Packages` und Projekteinstellungen bleiben erhalten. Dateien, die Unity im
-Package-Manager unter `Packages/com.unity.*` anzeigt, sollten nicht von Hand
-bearbeitet werden.
-
-## Lizenz
-
-Private
+Marken, Namen und Inhalte anderer Spiele werden nicht übernommen; dieses Repository entwickelt eine eigenständige Simulation.
