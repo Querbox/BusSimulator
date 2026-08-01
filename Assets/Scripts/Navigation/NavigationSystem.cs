@@ -18,7 +18,7 @@ public class NavigationSystem : MonoBehaviour
     private void Start()
     {
         if (routeManager == null)
-            routeManager = FindObjectOfType<RealisticRouteManager>();
+            routeManager = FindAnyObjectByType<RealisticRouteManager>();
     }
 
     public void StartRoute(string routeId)

@@ -8,7 +8,7 @@ public class AdvancedBusPhysics : MonoBehaviour
     [SerializeField] private float maxSpeed = 80f;
     [SerializeField] private float acceleration = 15f;
     [SerializeField] private float brakePower = 20f;
-    [SerializeField] private float turnSpeed = 90f;
+    [SerializeField] private float maxSteeringAngle = 30f;
     [SerializeField] private float steeringSensitivity = 1.5f;
     [SerializeField] private float friction = 3f;
     [SerializeField] private float roadFriction = 0.5f; // Reibung auf Straßen (weniger)
@@ -28,13 +28,14 @@ public class AdvancedBusPhysics : MonoBehaviour
 
     private void Start()
     {
+        currentFriction = friction;
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody>();
             rb.mass = 12000f;
-            rb.drag = 0.1f;
-            rb.angularDrag = 0.1f;
+            rb.linearDamping = 0.1f;
+            rb.angularDamping = 0.1f;
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
     }
@@ -105,12 +106,12 @@ public class AdvancedBusPhysics : MonoBehaviour
         if (!engineRunning || rb == null) return;
 
         // Ackermann-Lenkgeometrie für realistisches Verhalten
-        float steeringAngle = currentSteering * 30f; // Max 30 Grad Lenkwinkel
+        float steeringAngle = currentSteering * maxSteeringAngle;
         float turningRadius = wheelbase / Mathf.Tan(steeringAngle * Mathf.Deg2Rad);
 
         // Bewegung
         Vector3 moveDirection = transform.forward * currentSpeed * Time.fixedDeltaTime / 3.6f;
-        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
 
         // Rotation mit Ackermann-Geometrie
         if (Mathf.Abs(currentSpeed) > 0.1f)

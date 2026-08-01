@@ -28,7 +28,7 @@ public class AutoRoadSystem : MonoBehaviour
         }
 
         // TODO: Integriere mit OSMImporter für echte Straßendaten
-        Debug.Log("Straßen-System initialisiert");
+        Debug.Log($"Straßen-System initialisiert mit Standardbreite {defaultRoadWidth}m");
     }
 
     public bool IsOnRoad(Vector3 position, float checkRadius = 2f)

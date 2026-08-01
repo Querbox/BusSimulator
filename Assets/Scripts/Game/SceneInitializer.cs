@@ -52,7 +52,7 @@ public class SceneInitializer : MonoBehaviour
         // Rigidbody
         Rigidbody rb = busInstance.AddComponent<Rigidbody>();
         rb.mass = 12000f;
-        rb.drag = 0.1f;
+        rb.linearDamping = 0.1f;
 
         Debug.Log($"Bus gespawnt bei {spawnPos}");
     }
@@ -68,7 +68,7 @@ public class SceneInitializer : MonoBehaviour
         GameObject cameraObj = new GameObject("CameraController");
         cameraObj.transform.parent = busInstance.transform;
         cameraController = cameraObj.AddComponent<CameraController>();
-        cameraController.GetComponent<CameraController>().busTransform = busInstance.transform;
+        cameraController.SetTarget(busInstance.transform);
 
         Debug.Log("Kamera eingerichtet");
     }

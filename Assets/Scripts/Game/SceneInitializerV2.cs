@@ -71,8 +71,8 @@ public class SceneInitializerV2 : MonoBehaviour
         // Rigidbody
         Rigidbody rb = busInstance.AddComponent<Rigidbody>();
         rb.mass = 12000f;
-        rb.drag = 0.1f;
-        rb.angularDrag = 0.1f;
+        rb.linearDamping = 0.1f;
+        rb.angularDamping = 0.1f;
 
         playerBusController = physicsController;
         Debug.Log("✓ Bus im Depot geparkt");
