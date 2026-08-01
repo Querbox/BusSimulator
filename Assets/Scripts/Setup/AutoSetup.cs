@@ -7,6 +7,11 @@ using UnityEngine.Rendering;
 /// </summary>
 public class AutoSetup : MonoBehaviour
 {
+    private BusDepot generatedDepot;
+    private BusPhysicsController generatedBusController;
+    private Transform generatedBusTransform;
+    private CameraController generatedCameraController;
+
     private void Awake()
     {
         SetupGame();
@@ -113,8 +118,8 @@ public class AutoSetup : MonoBehaviour
     private void SetupDepot()
     {
         GameObject depotObj = new GameObject("BusDepot");
-        BusDepot depot = depotObj.AddComponent<BusDepot>();
-        depot.InitializeDepot();
+        generatedDepot = depotObj.AddComponent<BusDepot>();
+        generatedDepot.InitializeDepot();
         Debug.Log("✓ Bus-Depot erstellt (HVB Hechingen)");
     }
 
@@ -132,12 +137,14 @@ public class AutoSetup : MonoBehaviour
 
         // Bus-Komponenten
         busObj.AddComponent<BusModel>();
-        busObj.AddComponent<BusPhysicsController>();
+        generatedBusController = busObj.AddComponent<BusPhysicsController>();
+        generatedBusTransform = busObj.transform;
 
         // Kamera-Controller
         GameObject cameraControllerObj = new GameObject("CameraController");
         cameraControllerObj.transform.parent = busObj.transform;
-        CameraController cameraController = cameraControllerObj.AddComponent<CameraController>();
+        generatedCameraController = cameraControllerObj.AddComponent<CameraController>();
+        generatedCameraController.SetTarget(busObj.transform);
 
         Debug.Log("✓ Spieler-Bus mit allen Komponenten erstellt");
     }
@@ -146,6 +153,7 @@ public class AutoSetup : MonoBehaviour
     {
         GameObject depotMgrObj = new GameObject("DepotManager");
         DepotManager depotManager = depotMgrObj.AddComponent<DepotManager>();
+        depotManager.Configure(generatedDepot, generatedBusController, generatedBusTransform, generatedCameraController);
         Debug.Log("✓ Depot Manager aktiv - Starte Spiel!");
     }
 }

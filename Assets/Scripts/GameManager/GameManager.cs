@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             UpdateGameState();
         }
         
-        if (InputSystemControls.WasEscapePressed())
+        if (BuiltInInputControls.WasEscapePressed())
         {
             TogglePauseGame();
         }
@@ -54,7 +54,17 @@ public class GameManager : MonoBehaviour
     {
         isGameRunning = true;
         gameTime = 0f;
+        Time.timeScale = 1f;
         Debug.Log("Spiel gestartet!");
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+            Time.timeScale = 1f;
+        }
     }
     
     public void TogglePauseGame()

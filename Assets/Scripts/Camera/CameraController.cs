@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (busTransform == null) return;
+        if (busTransform == null || mainCamera == null) return;
 
         switch (currentMode)
         {
@@ -80,9 +80,9 @@ public class CameraController : MonoBehaviour
         mainCamera.transform.LookAt(busTransform.position + busTransform.forward * 20f + Vector3.up * 1f);
 
         // Optionale Mouse-Look für freie Kamerarotation
-        if (InputSystemControls.IsAltPressed())
+        if (BuiltInInputControls.IsAltPressed())
         {
-            Vector2 mouseDelta = InputSystemControls.GetMouseDelta();
+            Vector2 mouseDelta = BuiltInInputControls.GetMouseDelta();
             mouseX += mouseDelta.x * mouseSensitivity;
             mouseY -= mouseDelta.y * mouseSensitivity;
             mouseY = Mathf.Clamp(mouseY, -30f, 30f);
@@ -154,17 +154,17 @@ public class CameraController : MonoBehaviour
 
     private void HandleCameraModeInput()
     {
-        if (InputSystemControls.WasCameraCyclePressed())
+        if (BuiltInInputControls.WasCameraCyclePressed())
         {
             int modeCount = System.Enum.GetValues(typeof(CameraMode)).Length;
             currentMode = (CameraMode)(((int)currentMode + 1) % modeCount);
             Debug.Log($"Kamera-Modus: {currentMode}");
         }
 
-        if (InputSystemControls.WasNumberPressed(1)) currentMode = CameraMode.FirstPerson;
-        if (InputSystemControls.WasNumberPressed(2)) currentMode = CameraMode.ThirdPerson;
-        if (InputSystemControls.WasNumberPressed(3)) currentMode = CameraMode.Orbiting;
-        if (InputSystemControls.WasNumberPressed(4)) currentMode = CameraMode.Cinematic;
+        if (BuiltInInputControls.WasNumberPressed(1)) currentMode = CameraMode.FirstPerson;
+        if (BuiltInInputControls.WasNumberPressed(2)) currentMode = CameraMode.ThirdPerson;
+        if (BuiltInInputControls.WasNumberPressed(3)) currentMode = CameraMode.Orbiting;
+        if (BuiltInInputControls.WasNumberPressed(4)) currentMode = CameraMode.Cinematic;
     }
 
 

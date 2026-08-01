@@ -90,13 +90,13 @@ public class DepotManager : MonoBehaviour
         if (gameStarted) return;
 
         // Bus-Auswahl
-        if (InputSystemControls.WasNumberPressed(1))
+        if (BuiltInInputControls.WasNumberPressed(1))
             SelectBus(0);
-        else if (InputSystemControls.WasNumberPressed(2))
+        else if (BuiltInInputControls.WasNumberPressed(2))
             SelectBus(1);
-        else if (InputSystemControls.WasNumberPressed(3))
+        else if (BuiltInInputControls.WasNumberPressed(3))
             SelectBus(2);
-        else if (InputSystemControls.WasEscapePressed())
+        else if (BuiltInInputControls.WasEscapePressed())
             Debug.Log("Spiel abgebrochen");
     }
 
@@ -141,6 +141,15 @@ public class DepotManager : MonoBehaviour
             GameManager.Instance.StartGame();
             Debug.Log("Fahrt begonnen! Viel Spaß!");
         }
+    }
+
+    public void Configure(BusDepot depot, BusPhysicsController busController,
+        Transform busTransform, CameraController controller)
+    {
+        busDepot = depot;
+        playerBusController = busController;
+        playerBusTransform = busTransform;
+        cameraController = controller;
     }
 
     public List<AvailableBus> GetAvailableBuses() => availableBuses;
