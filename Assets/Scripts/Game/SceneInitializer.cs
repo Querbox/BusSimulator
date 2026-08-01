@@ -43,16 +43,13 @@ public class SceneInitializer : MonoBehaviour
         busInstance = new GameObject("Bus");
         busInstance.transform.position = spawnPos;
 
-        // Bus-Modell hinzufügen
-        BusModel busModel = busInstance.AddComponent<BusModel>();
-        
-        // Bus-Physik hinzufügen
-        BusPhysicsController physicsController = busInstance.AddComponent<BusPhysicsController>();
-        
-        // Rigidbody
+        // Rigidbody vor Komponenten konfigurieren, deren Awake darauf zugreift.
         Rigidbody rb = busInstance.AddComponent<Rigidbody>();
         rb.mass = 12000f;
         rb.linearDamping = 0.1f;
+
+        busInstance.AddComponent<BusModel>();
+        busInstance.AddComponent<BusPhysicsController>();
 
         Debug.Log($"Bus gespawnt bei {spawnPos}");
     }

@@ -64,15 +64,14 @@ public class SceneInitializerV2 : MonoBehaviour
         busInstance = new GameObject("PlayerBus");
         busInstance.transform.position = new Vector3(-20f, 0, 0); // Wird vom Depot-Manager angepasst
 
-        // Bus-Komponenten
-        BusModel busModel = busInstance.AddComponent<BusModel>();
-        BusPhysicsController physicsController = busInstance.AddComponent<BusPhysicsController>();
-        
-        // Rigidbody
+        // Rigidbody vor Komponenten konfigurieren, deren Awake darauf zugreift.
         Rigidbody rb = busInstance.AddComponent<Rigidbody>();
         rb.mass = 12000f;
         rb.linearDamping = 0.1f;
         rb.angularDamping = 0.1f;
+
+        busInstance.AddComponent<BusModel>();
+        BusPhysicsController physicsController = busInstance.AddComponent<BusPhysicsController>();
 
         playerBusController = physicsController;
         Debug.Log("✓ Bus im Depot geparkt");

@@ -33,7 +33,7 @@ BusSimulator/
 │   │   └── Setup/
 │   │       └── AutoSetup.cs          ← NEUES AUTO-SETUP!
 │   ├── Scenes/
-│   │   └── MainScene.unity           ← Hauptszene
+│   │   └── Main.unity                ← Hauptszene
 │   ├── Models/
 │   ├── Materials/
 │   ├── Data/
@@ -80,7 +80,7 @@ BusSimulator/
 
 Dieses Repository enthält die Unity-Projektmarker `ProjectSettings/ProjectVersion.txt` und `Packages/manifest.json`. Dadurch kann Unity Hub das Repository direkt über **Add project from repository** mit `Querbox/BusSimulator` und Branch `main` erkennen und herunterladen.
 
-1. **Scene öffnen**: `Assets/Scenes/MainScene.unity`
+1. **Scene öffnen**: `Assets/Scenes/Main.unity`
 2. **AutoSetup hinzufügen** (siehe QUICKSTART.md)
 3. **Play drücken!** (Ctrl+P)
 4. **Bus wählen** (Taste 1, 2 oder 3)
@@ -96,12 +96,11 @@ Dieses Repository enthält die Unity-Projektmarker `ProjectSettings/ProjectVersi
 
 ## 📊 Statistiken
 
-- **C# Scripts**: 16
+- **C#-Scripts**: 25
 - **Buslinien**: 3 (Linie 753, 752, 754)
 - **Bushaltestellen**: 9
 - **Parkplätze**: 12 + 2 Wartung
 - **Kamera-Modi**: 4
-- **Zeilen Code**: ~3000+
 
 ## 📝 Lizenz
 
