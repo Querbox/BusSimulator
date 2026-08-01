@@ -54,6 +54,7 @@ public class MapManagerV2 : MonoBehaviour
 
             // Visual Component hinzufügen
             BusStopVisual visual = stopObj.AddComponent<BusStopVisual>();
+            visual.Initialize(stop, GetStopMaterial(stop.type));
             Debug.Log($"Haltestelle platziert: {stop.name} bei {worldPos}");
         }
     }
@@ -101,6 +102,24 @@ public class MapManagerV2 : MonoBehaviour
             "tourist_bus" => Color.magenta,
             _ => Color.white
         };
+    }
+
+    private Material GetStopMaterial(string stopType)
+    {
+        if (stopMaterials == null || stopMaterials.Length == 0)
+        {
+            return null;
+        }
+
+        int index = stopType switch
+        {
+            "main_station" => 0,
+            "school" => 1,
+            "tourist_attraction" => 2,
+            _ => 0
+        };
+
+        return stopMaterials[Mathf.Min(index, stopMaterials.Length - 1)];
     }
 
     public GameObject GetMapContainer()

@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Kontrolliert die Bus-Mechanik und Fahrdynamik
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class BusController : MonoBehaviour
 {
     [SerializeField] private float maxSpeed = 50f; // km/h
@@ -16,20 +17,17 @@ public class BusController : MonoBehaviour
     private float currentSteering = 0f;
     private int passengerCount = 0;
     
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            Debug.LogError("BusController benötigt einen Rigidbody!");
-        }
     }
     
     private void Update()
     {
         HandleInput();
-        UpdateBusMovement();
     }
+
+    private void FixedUpdate() => UpdateBusMovement();
     
     private void HandleInput()
     {
@@ -60,12 +58,12 @@ public class BusController : MonoBehaviour
         if (rb == null) return;
         
         // Bewegung nach vorne
-        Vector3 moveDirection = transform.forward * currentSpeed * Time.deltaTime;
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, moveDirection.z);
+        Vector3 moveVelocity = transform.forward * (currentSpeed / 3.6f);
+        rb.linearVelocity = new Vector3(moveVelocity.x, rb.linearVelocity.y, moveVelocity.z);
         
         // Rotation
-        float rotationAmount = currentSteering * turnSpeed * Time.deltaTime;
-        transform.Rotate(0, rotationAmount, 0);
+        float rotationAmount = currentSteering * turnSpeed * Time.fixedDeltaTime;
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, rotationAmount, 0f));
     }
     
     public void AddPassenger()

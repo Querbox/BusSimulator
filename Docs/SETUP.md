@@ -2,7 +2,7 @@
 
 ## Voraussetzungen
 
-- Unity 6.5 (6000.5.6f1) oder neuer
+- Unity 6.5 (6000.5.6f1), passend zu `ProjectSettings/ProjectVersion.txt`
 - Git installiert
 - mindestens 5 GB freier Speicherplatz
 
@@ -21,7 +21,7 @@
    - Öffne das Projekt
 
 3. **Szene laden**
-   - Öffne `Assets/Scenes/MainScene.unity`
+   - Öffne `Assets/Scenes/Main.unity`
    - Drücke Play (Ctrl+P)
 
 ## Steuerung

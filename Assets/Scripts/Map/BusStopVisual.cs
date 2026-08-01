@@ -11,11 +11,21 @@ public class BusStopVisual : MonoBehaviour
     [SerializeField] private float markerRadius = 1f;
 
     private GameObject marker;
-    private TextMesh stopNameDisplay;
 
     private void Start()
     {
         if (busStop != null)
+        {
+            CreateStopMarker();
+        }
+    }
+
+    public void Initialize(BusStop stop, Material material = null)
+    {
+        busStop = stop;
+        stopMaterial = material;
+
+        if (marker == null && busStop != null)
         {
             CreateStopMarker();
         }
@@ -33,7 +43,7 @@ public class BusStopVisual : MonoBehaviour
         // Material setzen
         if (stopMaterial != null)
         {
-            marker.GetComponent<Renderer>().material = stopMaterial;
+            marker.GetComponent<Renderer>().sharedMaterial = stopMaterial;
         }
         else
         {
@@ -43,7 +53,7 @@ public class BusStopVisual : MonoBehaviour
         }
 
         // Kollider entfernen (nicht nötig für visuelle Marker)
-        DestroyImmediate(marker.GetComponent<Collider>());
+        Destroy(marker.GetComponent<Collider>());
 
         // Text-Anzeige erstellen
         GameObject textObj = new GameObject("StopName");

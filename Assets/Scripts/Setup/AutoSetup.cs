@@ -123,16 +123,16 @@ public class AutoSetup : MonoBehaviour
         GameObject busObj = new GameObject("PlayerBus");
         busObj.transform.position = new Vector3(-20f, 0, 0);
 
-        // Bus-Komponenten
-        BusModel busModel = busObj.AddComponent<BusModel>();
-        BusPhysicsController physicsController = busObj.AddComponent<BusPhysicsController>();
-        
         // Rigidbody
         Rigidbody rb = busObj.AddComponent<Rigidbody>();
         rb.mass = 12000f;
         rb.linearDamping = 0.1f;
         rb.angularDamping = 0.1f;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        // Bus-Komponenten
+        busObj.AddComponent<BusModel>();
+        busObj.AddComponent<BusPhysicsController>();
 
         // Kamera-Controller
         GameObject cameraControllerObj = new GameObject("CameraController");
