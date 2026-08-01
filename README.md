@@ -10,17 +10,15 @@ Der aktuelle Stand enthält:
 - eine automatisch erzeugte Teststrecke,
 - einen physikbasierten Platzhalter-Bus,
 - eine nachlaufende Kamera,
-- ein direkt bedienbares Haupt- und Pausenmenü,
-- eine Anzeige für Geschwindigkeit und Steuerung.
+- eine kleine Anzeige für Geschwindigkeit und Steuerung.
 
 ## Auf dem MacBook starten
 
 1. [Unity Hub](https://unity.com/download) installieren.
 2. Über **Installs → Install Editor** die in `ProjectSettings/ProjectVersion.txt` angegebene Unity-Version installieren. Das Modul **Mac Build Support** genügt für diesen Prototyp.
 3. In Unity Hub **Add → Add project from disk** wählen und diesen Ordner öffnen.
-4. `Assets/BusSimulator/Scenes/Start.unity` öffnen.
+4. `Assets/BusSimulator/Scenes/Prototype.unity` öffnen.
 5. Oben auf **Play** klicken.
-6. Im Hauptmenü **Fahrt starten** auswählen.
 
 ### Steuerung
 
@@ -30,7 +28,6 @@ Der aktuelle Stand enthält:
 | Lenken | `A` / `D` oder Pfeiltasten |
 | Handbremse | Leertaste |
 | Zurücksetzen | `R` |
-| Pausenmenü | `Esc` |
 
 > Auf macOS fragt Unity beim ersten Start eventuell nach Zugriffsrechten für den Projektordner. Diese müssen erlaubt werden, damit Unity die `Library` erzeugen kann.
 
