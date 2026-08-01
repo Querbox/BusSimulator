@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Verbesserte Bus-Physik und Steuerung
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class BusPhysicsController : MonoBehaviour
 {
     [SerializeField] private float maxSpeed = 80f; // km/h
@@ -16,20 +17,12 @@ public class BusPhysicsController : MonoBehaviour
     private Rigidbody rb;
     private float currentSpeed = 0f;
     private float currentSteering = 0f;
-    private Vector3 currentDirection = Vector3.forward;
     private int passengerCount = 0;
     private bool engineRunning = true;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            rb = gameObject.AddComponent<Rigidbody>();
-            rb.mass = 12000f; // Busgewicht ca. 12 Tonnen
-            rb.linearDamping = 0.1f;
-            rb.angularDamping = 0.1f;
-        }
     }
 
     private void Update()
@@ -80,21 +73,19 @@ public class BusPhysicsController : MonoBehaviour
 
     private void UpdateBusMovement()
     {
-        if (!engineRunning) return;
         if (rb == null) return;
 
         // Bewegung
-        Vector3 moveDirection = transform.forward * currentSpeed * Time.fixedDeltaTime / 3.6f; // km/h zu m/s
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+        Vector3 moveVelocity = transform.forward * (currentSpeed / 3.6f); // km/h zu m/s
+        rb.linearVelocity = new Vector3(moveVelocity.x, rb.linearVelocity.y, moveVelocity.z);
 
         // Rotation
         float rotationAmount = currentSteering * turnSpeed * Time.fixedDeltaTime * (currentSpeed / maxSpeed);
-        transform.Rotate(0, rotationAmount, 0);
-
         // Bus neigt sich bei Kurven
         float tiltAmount = Mathf.Clamp(currentSteering * -maxTiltAngle, -maxTiltAngle, maxTiltAngle);
-        Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, tiltAmount);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 2f);
+        Quaternion steeringRotation = rb.rotation * Quaternion.Euler(0f, rotationAmount, 0f);
+        Quaternion targetRotation = Quaternion.Euler(0f, steeringRotation.eulerAngles.y, tiltAmount);
+        rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * 2f));
     }
 
     private void ApplyPhysics()

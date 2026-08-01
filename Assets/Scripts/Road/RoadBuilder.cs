@@ -74,7 +74,7 @@ public class RoadBuilder : MonoBehaviour
         meshFilter.mesh = roadMesh;
 
         MeshRenderer renderer = roadObj.AddComponent<MeshRenderer>();
-        Material roadMat = new Material(Shader.Find("Standard"));
+        Material roadMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         roadMat.color = new Color(0.5f, 0.5f, 0.5f);
         renderer.material = roadMat;
 

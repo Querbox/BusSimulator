@@ -84,12 +84,9 @@ public class BusDepot : MonoBehaviour
         mainBuilding.transform.localPosition = Vector3.zero;
         mainBuilding.transform.localScale = new Vector3(12f, 5f, 8f);
 
-        Material buildingMat = new Material(Shader.Find("Standard"));
+        Material buildingMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         buildingMat.color = new Color(0.9f, 0.85f, 0.7f); // Beige
         mainBuilding.GetComponent<Renderer>().material = buildingMat;
-
-        DestroyImmediate(mainBuilding.GetComponent<Collider>());
-        mainBuilding.AddComponent<BoxCollider>();
 
         // Dach
         GameObject roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -98,12 +95,9 @@ public class BusDepot : MonoBehaviour
         roof.transform.localPosition = new Vector3(0, 5.5f, 0);
         roof.transform.localScale = new Vector3(13f, 1f, 9f);
 
-        Material roofMat = new Material(Shader.Find("Standard"));
+        Material roofMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         roofMat.color = new Color(0.3f, 0.3f, 0.3f); // Dunkelgrau
         roof.GetComponent<Renderer>().material = roofMat;
-
-        DestroyImmediate(roof.GetComponent<Collider>());
-        roof.AddComponent<BoxCollider>();
 
         // Fenster
         for (int i = 0; i < 3; i++)
@@ -114,11 +108,11 @@ public class BusDepot : MonoBehaviour
             window.transform.localPosition = new Vector3(-4f + i * 4f, 2f, -4.5f);
             window.transform.localScale = new Vector3(1.5f, 2f, 0.2f);
 
-            Material windowMat = new Material(Shader.Find("Standard"));
+            Material windowMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             windowMat.color = new Color(0.3f, 0.7f, 1f);
             window.GetComponent<Renderer>().material = windowMat;
 
-            DestroyImmediate(window.GetComponent<Collider>());
+            Destroy(window.GetComponent<Collider>());
         }
 
         // Eingang
@@ -128,11 +122,11 @@ public class BusDepot : MonoBehaviour
         door.transform.localPosition = new Vector3(0, 2f, -4.5f);
         door.transform.localScale = new Vector3(1.5f, 3.5f, 0.2f);
 
-        Material doorMat = new Material(Shader.Find("Standard"));
+        Material doorMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         doorMat.color = new Color(0.2f, 0.2f, 0.2f);
         door.GetComponent<Renderer>().material = doorMat;
 
-        DestroyImmediate(door.GetComponent<Collider>());
+        Destroy(door.GetComponent<Collider>());
     }
 
     private void CreateParkingSpots()
@@ -202,11 +196,11 @@ public class BusDepot : MonoBehaviour
         ground.transform.localPosition = Vector3.zero;
         ground.transform.localScale = new Vector3(3f, 1f, 5f);
 
-        Material groundMat = new Material(Shader.Find("Standard"));
+        Material groundMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         groundMat.color = isMaintenance ? new Color(1f, 1f, 0.3f) : new Color(1f, 1f, 1f); // Gelb für Wartung
         ground.GetComponent<Renderer>().material = groundMat;
 
-        DestroyImmediate(ground.GetComponent<Collider>());
+        Destroy(ground.GetComponent<Collider>());
 
         // Nummern-Anzeige
         GameObject numberDisplay = new GameObject("NumberDisplay");
@@ -230,12 +224,9 @@ public class BusDepot : MonoBehaviour
         pump.transform.localPosition = Vector3.zero;
         pump.transform.localScale = new Vector3(1f, 4f, 1f);
 
-        Material pumpMat = new Material(Shader.Find("Standard"));
+        Material pumpMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         pumpMat.color = new Color(0.2f, 0.2f, 0.2f);
         pump.GetComponent<Renderer>().material = pumpMat;
-
-        DestroyImmediate(pump.GetComponent<Collider>());
-        pump.AddComponent<CapsuleCollider>();
 
         // Tank-Reservoir
         GameObject tank = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -244,12 +235,10 @@ public class BusDepot : MonoBehaviour
         tank.transform.localPosition = new Vector3(-3f, 0, 0);
         tank.transform.localScale = new Vector3(4f, 3f, 4f);
 
-        Material tankMat = new Material(Shader.Find("Standard"));
+        Material tankMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         tankMat.color = new Color(1f, 0.5f, 0f); // Orange
         tank.GetComponent<Renderer>().material = tankMat;
 
-        DestroyImmediate(tank.GetComponent<Collider>());
-        tank.AddComponent<SphereCollider>();
     }
 
     private void CreateMaintenanceArea()
@@ -265,12 +254,10 @@ public class BusDepot : MonoBehaviour
         garage.transform.localPosition = Vector3.zero;
         garage.transform.localScale = new Vector3(10f, 4f, 6f);
 
-        Material garageMat = new Material(Shader.Find("Standard"));
+        Material garageMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         garageMat.color = new Color(0.5f, 0.5f, 0.5f);
         garage.GetComponent<Renderer>().material = garageMat;
 
-        DestroyImmediate(garage.GetComponent<Collider>());
-        garage.AddComponent<BoxCollider>();
     }
 
     public ParkingSpot GetAvailableParkingSpot()

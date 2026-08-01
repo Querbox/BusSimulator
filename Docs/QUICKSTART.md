@@ -4,9 +4,8 @@
 
 ### **Schritt 1: Scene öffnen**
 1. Öffne Unity
-2. Öffne/Erstelle eine Scene:
-   - `Assets/Scenes/MainScene.unity`
-   - Falls nicht vorhanden: Rechtsklick → New Scene → Speichern als `MainScene`
+2. Öffne die eingecheckte Scene:
+   - `Assets/Scenes/Main.unity`
 
 ### **Schritt 2: Auto-Setup Script hinzufügen**
 1. Erstelle ein leeres GameObject:

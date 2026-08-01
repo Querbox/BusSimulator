@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Verbesserte Bus-Physik mit Straßen-Erkennung und realistischem Verhalten
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class AdvancedBusPhysics : MonoBehaviour
 {
     [SerializeField] private float maxSpeed = 80f;
@@ -20,24 +21,15 @@ public class AdvancedBusPhysics : MonoBehaviour
     private Rigidbody rb;
     private float currentSpeed = 0f;
     private float currentSteering = 0f;
-    private Vector3 currentDirection = Vector3.forward;
     private int passengerCount = 0;
     private bool engineRunning = true;
     private bool onRoad = false;
     private float currentFriction = 3f;
 
-    private void Start()
+    private void Awake()
     {
         currentFriction = friction;
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            rb = gameObject.AddComponent<Rigidbody>();
-            rb.mass = 12000f;
-            rb.linearDamping = 0.1f;
-            rb.angularDamping = 0.1f;
-            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        }
     }
 
     private void Update()
@@ -87,8 +79,8 @@ public class AdvancedBusPhysics : MonoBehaviour
     private void CheckIfOnRoad()
     {
         // Raycast nach unten um zu prüfen ob Bus auf Straße ist
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
+        int layerMask = roadLayer.value == 0 ? Physics.DefaultRaycastLayers : roadLayer.value;
+        if (Physics.Raycast(transform.position, Vector3.down, out _, 2f, layerMask, QueryTriggerInteraction.Ignore))
         {
             // TODO: Straßen-Layer implementieren
             onRoad = true;
@@ -103,27 +95,28 @@ public class AdvancedBusPhysics : MonoBehaviour
 
     private void UpdateBusMovement()
     {
-        if (!engineRunning || rb == null) return;
+        if (rb == null) return;
 
         // Ackermann-Lenkgeometrie für realistisches Verhalten
         float steeringAngle = currentSteering * maxSteeringAngle;
         float turningRadius = wheelbase / Mathf.Tan(steeringAngle * Mathf.Deg2Rad);
 
         // Bewegung
-        Vector3 moveDirection = transform.forward * currentSpeed * Time.fixedDeltaTime / 3.6f;
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+        Vector3 moveVelocity = transform.forward * (currentSpeed / 3.6f);
+        rb.linearVelocity = new Vector3(moveVelocity.x, rb.linearVelocity.y, moveVelocity.z);
 
         // Rotation mit Ackermann-Geometrie
-        if (Mathf.Abs(currentSpeed) > 0.1f)
+        Quaternion steeringRotation = rb.rotation;
+        if (Mathf.Abs(currentSpeed) > 0.1f && Mathf.Abs(steeringAngle) > 0.01f)
         {
             float rotationAmount = (currentSpeed / turningRadius) * Time.fixedDeltaTime;
-            transform.Rotate(0, rotationAmount * Mathf.Rad2Deg, 0);
+            steeringRotation *= Quaternion.Euler(0f, rotationAmount * Mathf.Rad2Deg, 0f);
         }
 
         // Bus neigt sich bei Kurven
         float tiltAmount = Mathf.Clamp(currentSteering * -maxTiltAngle, -maxTiltAngle, maxTiltAngle);
-        Quaternion targetRotation = Quaternion.Euler(tiltAmount * (currentSpeed / maxSpeed), transform.eulerAngles.y, tiltAmount);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 2f);
+        Quaternion targetRotation = Quaternion.Euler(tiltAmount * (currentSpeed / maxSpeed), steeringRotation.eulerAngles.y, tiltAmount);
+        rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * 2f));
     }
 
     private void ApplyPhysics()

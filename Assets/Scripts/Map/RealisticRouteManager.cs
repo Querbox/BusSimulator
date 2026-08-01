@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Networking;
 using System;
-using System.Text;
 
 [System.Serializable]
 public class BusStop
@@ -72,7 +70,7 @@ public class RealisticRouteManager : MonoBehaviour
     private Dictionary<string, BusStop> stopsDict = new Dictionary<string, BusStop>();
     private Dictionary<string, BusRoute> routesDict = new Dictionary<string, BusRoute>();
 
-    private void Start()
+    private void Awake()
     {
         LoadRealisticRouteData();
     }
@@ -88,7 +86,7 @@ public class RealisticRouteManager : MonoBehaviour
 
         try
         {
-            busNetworkData = UnityEngine.JsonUtility.FromJson<BusNetworkData>(StripJsonComments(jsonFile.text));
+            busNetworkData = JsonUtility.FromJson<BusNetworkData>(jsonFile.text);
             if (busNetworkData == null || busNetworkData.stops == null || busNetworkData.routes == null)
             {
                 Debug.LogError("Routendaten sind leer oder unvollständig.");
@@ -118,85 +116,6 @@ public class RealisticRouteManager : MonoBehaviour
         {
             Debug.LogError($"Fehler beim Laden der Routendaten: {ex.Message}");
         }
-    }
-
-    private string StripJsonComments(string json)
-    {
-        var builder = new StringBuilder();
-        bool inString = false;
-        bool isEscaped = false;
-
-        foreach (string line in json.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None))
-        {
-            bool lineHasJson = false;
-
-            for (int i = 0; i < line.Length; i++)
-            {
-                char current = line[i];
-
-                if (current == '\\' && inString)
-                {
-                    isEscaped = !isEscaped;
-                    continue;
-                }
-
-                if (current == '"' && !isEscaped)
-                {
-                    inString = !inString;
-                }
-
-                if (!inString && current == '#')
-                {
-                    break;
-                }
-
-                if (!char.IsWhiteSpace(current))
-                {
-                    lineHasJson = true;
-                }
-
-                isEscaped = false;
-            }
-
-            if (lineHasJson)
-            {
-                int commentIndex = FindCommentStart(line);
-                builder.AppendLine(commentIndex >= 0 ? line.Substring(0, commentIndex) : line);
-            }
-        }
-
-        return builder.ToString();
-    }
-
-    private int FindCommentStart(string line)
-    {
-        bool inString = false;
-        bool isEscaped = false;
-
-        for (int i = 0; i < line.Length; i++)
-        {
-            char current = line[i];
-
-            if (current == '\\' && inString)
-            {
-                isEscaped = !isEscaped;
-                continue;
-            }
-
-            if (current == '"' && !isEscaped)
-            {
-                inString = !inString;
-            }
-
-            if (!inString && current == '#')
-            {
-                return i;
-            }
-
-            isEscaped = false;
-        }
-
-        return -1;
     }
 
     /// <summary>
