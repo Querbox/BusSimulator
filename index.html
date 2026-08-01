@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b1520">
   <title>Bus Simulator — Hechingen</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css">
   <link rel="stylesheet" href="web/styles.css">
 </head>
 <body>
   <main class="game-shell">
-    <canvas id="game" aria-label="Spielfeld des Bus Simulators"></canvas>
+    <div id="game" aria-label="3D-Spielfeld auf der echten Karte von Hechingen"></div>
+    <div class="world-vignette" aria-hidden="true"></div>
 
     <header class="topbar glass">
       <div class="brand"><span class="brand-mark">B</span><div><strong>BUS SIMULATOR</strong><small>HECHINGEN</small></div></div>
@@ -49,6 +51,8 @@
     <button id="sound" class="icon-button glass" aria-label="Ton umschalten">♪</button>
     <button id="pause" class="icon-button pause glass" aria-label="Spiel pausieren">Ⅱ</button>
 
+    <div id="mapError" class="map-error" role="status">Karte wird geladen …</div>
+
     <div id="startScreen" class="start-screen">
       <div class="start-card glass">
         <span class="eyebrow">WILLKOMMEN IM DIENST</span>
@@ -56,10 +60,11 @@
         <p>Vom Bahnhof Hechingen bis zur Burg Hohenzollern. Nimm Fahrgäste mit, halte den Fahrplan und fahre sicher.</p>
         <div class="trip"><span><small>START</small>Hechingen Bahnhof</span><i>→</i><span><small>ZIEL</small>Burg Hohenzollern</span></div>
         <button id="startButton">FAHRT STARTEN <span>→</span></button>
-        <small class="hint">Steuerung mit Tastatur · Kein Download nötig</small>
+        <small class="hint">3D-Karte mit OpenStreetMap · Steuerung mit Tastatur</small>
       </div>
     </div>
   </main>
+  <script src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"></script>
   <script src="web/game.js"></script>
 </body>
 </html>
