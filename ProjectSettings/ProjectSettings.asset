@@ -14,4 +14,4 @@ PlayerSettings:
   - m_BuildTarget: Server
     m_StaticBatching: 1
     m_DynamicBatching: 0
-  m_ActiveInputHandler: 1
+  m_ActiveInputHandler: 0

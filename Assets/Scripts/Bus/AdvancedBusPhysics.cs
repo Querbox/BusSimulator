@@ -46,8 +46,8 @@ public class AdvancedBusPhysics : MonoBehaviour
 
     private void HandleInput()
     {
-        float throttle = InputSystemControls.GetThrottle();
-        bool braking = InputSystemControls.IsBrakePressed();
+        float throttle = BuiltInInputControls.GetThrottle();
+        bool braking = BuiltInInputControls.IsBrakePressed();
 
         if (throttle > 0.1f && engineRunning)
         {
@@ -67,9 +67,9 @@ public class AdvancedBusPhysics : MonoBehaviour
         }
 
         // Lenkung mit Ackermann-Geometrie (realistisches Lenkverhalten)
-        currentSteering = InputSystemControls.GetSteering() * steeringSensitivity;
+        currentSteering = BuiltInInputControls.GetSteering() * steeringSensitivity;
 
-        if (InputSystemControls.WasEngineTogglePressed())
+        if (BuiltInInputControls.WasEngineTogglePressed())
         {
             engineRunning = !engineRunning;
             Debug.Log(engineRunning ? "Motor läuft" : "Motor aus");

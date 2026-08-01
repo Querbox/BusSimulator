@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             UpdateGameState();
         }
         
-        if (InputSystemControls.WasEscapePressed())
+        if (BuiltInInputControls.WasEscapePressed())
         {
             TogglePauseGame();
         }
