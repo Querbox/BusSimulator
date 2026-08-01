@@ -76,6 +76,10 @@ BusSimulator/
 
 ## 🚀 Schnellstart
 
+### Unity Hub + GitHub
+
+Dieses Repository enthält die Unity-Projektmarker `ProjectSettings/ProjectVersion.txt` und `Packages/manifest.json`. Dadurch kann Unity Hub das Repository direkt über **Add project from repository** mit `Querbox/BusSimulator` und Branch `main` erkennen und herunterladen.
+
 1. **Scene öffnen**: `Assets/Scenes/MainScene.unity`
 2. **AutoSetup hinzufügen** (siehe QUICKSTART.md)
 3. **Play drücken!** (Ctrl+P)

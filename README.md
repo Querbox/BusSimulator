@@ -42,9 +42,10 @@ BusSimulator/
 
 1. Unity 2022 LTS installieren
 2. Project clonen: `git clone <repo>`
-3. In Unity öffnen
-4. Scene laden: `Assets/Scenes/MainScene.unity`
-5. Play drücken! 🎮
+3. In Unity Hub über **Add project from repository** `Querbox/BusSimulator` und Branch `main` auswählen oder den geklonten Ordner öffnen. Unity erkennt das Repository durch `ProjectSettings/ProjectVersion.txt` automatisch als Unity-Projekt.
+4. In Unity öffnen
+5. Scene laden: `Assets/Scenes/MainScene.unity`
+6. Play drücken! 🎮
 
 ## Lizenz
 
