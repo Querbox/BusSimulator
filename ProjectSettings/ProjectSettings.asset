@@ -3,30 +3,11 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 27
-  productGUID: 00000000000000000000000000000000
-  companyName: DefaultCompany
-  productName: BusSimulator
-  m_BuildTargetBatching:
-  - m_BuildTarget: Standalone
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: Server
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: iPhone
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: Android
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: WebGL
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: tvOS
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  - m_BuildTarget: VisionOS
-    m_StaticBatching: 1
-    m_DynamicBatching: 0
-  m_ActiveInputHandler: 0
+  productGUID: c1dc95520b304cab89f3cb47eb95eb25
+  companyName: Bus Simulator Project
+  productName: Bus Simulator
+  defaultScreenWidth: 1280
+  defaultScreenHeight: 720
+  runInBackground: 1
+  activeInputHandler: 0
+  macRetinaSupport: 1
