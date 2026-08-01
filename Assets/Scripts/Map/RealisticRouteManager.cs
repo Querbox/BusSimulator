@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using System;
+using System.Text;
 
 [System.Serializable]
 public class BusStop
@@ -87,8 +88,16 @@ public class RealisticRouteManager : MonoBehaviour
 
         try
         {
-            busNetworkData = UnityEngine.JsonUtility.FromJson<BusNetworkData>(jsonFile.text);
-            
+            busNetworkData = UnityEngine.JsonUtility.FromJson<BusNetworkData>(StripJsonComments(jsonFile.text));
+            if (busNetworkData == null || busNetworkData.stops == null || busNetworkData.routes == null)
+            {
+                Debug.LogError("Routendaten sind leer oder unvollständig.");
+                return;
+            }
+
+            stopsDict.Clear();
+            routesDict.Clear();
+
             // Stopps in Dictionary laden
             foreach (var stop in busNetworkData.stops)
             {
@@ -111,6 +120,85 @@ public class RealisticRouteManager : MonoBehaviour
         }
     }
 
+    private string StripJsonComments(string json)
+    {
+        var builder = new StringBuilder();
+        bool inString = false;
+        bool isEscaped = false;
+
+        foreach (string line in json.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None))
+        {
+            bool lineHasJson = false;
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                char current = line[i];
+
+                if (current == '\\' && inString)
+                {
+                    isEscaped = !isEscaped;
+                    continue;
+                }
+
+                if (current == '"' && !isEscaped)
+                {
+                    inString = !inString;
+                }
+
+                if (!inString && current == '#')
+                {
+                    break;
+                }
+
+                if (!char.IsWhiteSpace(current))
+                {
+                    lineHasJson = true;
+                }
+
+                isEscaped = false;
+            }
+
+            if (lineHasJson)
+            {
+                int commentIndex = FindCommentStart(line);
+                builder.AppendLine(commentIndex >= 0 ? line.Substring(0, commentIndex) : line);
+            }
+        }
+
+        return builder.ToString();
+    }
+
+    private int FindCommentStart(string line)
+    {
+        bool inString = false;
+        bool isEscaped = false;
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char current = line[i];
+
+            if (current == '\\' && inString)
+            {
+                isEscaped = !isEscaped;
+                continue;
+            }
+
+            if (current == '"' && !isEscaped)
+            {
+                inString = !inString;
+            }
+
+            if (!inString && current == '#')
+            {
+                return i;
+            }
+
+            isEscaped = false;
+        }
+
+        return -1;
+    }
+
     /// <summary>
     /// Gibt eine Haltestelle anhand ihrer ID zurück
     /// </summary>
@@ -129,7 +217,7 @@ public class RealisticRouteManager : MonoBehaviour
     /// </summary>
     public BusStop[] GetAllStops()
     {
-        return busNetworkData.stops;
+        return busNetworkData?.stops ?? new BusStop[0];
     }
 
     /// <summary>
@@ -150,7 +238,7 @@ public class RealisticRouteManager : MonoBehaviour
     /// </summary>
     public BusRoute[] GetAllRoutes()
     {
-        return busNetworkData.routes;
+        return busNetworkData?.routes ?? new BusRoute[0];
     }
 
     /// <summary>
