@@ -166,6 +166,12 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad4)) currentMode = CameraMode.Cinematic;
     }
 
+
+    public void SetTarget(Transform target)
+    {
+        busTransform = target;
+    }
+
     public void SetCameraMode(CameraMode mode)
     {
         currentMode = mode;

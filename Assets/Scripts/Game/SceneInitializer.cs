@@ -68,7 +68,7 @@ public class SceneInitializer : MonoBehaviour
         GameObject cameraObj = new GameObject("CameraController");
         cameraObj.transform.parent = busInstance.transform;
         cameraController = cameraObj.AddComponent<CameraController>();
-        cameraController.GetComponent<CameraController>().busTransform = busInstance.transform;
+        cameraController.SetTarget(busInstance.transform);
 
         Debug.Log("Kamera eingerichtet");
     }
