@@ -12,10 +12,10 @@ Ein realistischer 3D-Bus-Simulator mit echten Straßendaten und Haltestellen.
 
 ## Technologie
 
-- **Engine**: Unity 2022 LTS
+- **Engine**: Unity 6.5 (6000.5.6f1, 2026 Supported Release)
 - **Sprache**: C#
 - **Karten-Daten**: OpenStreetMap
-- **3D-Grafik**: Built-in Rendering Pipeline
+- **3D-Grafik**: Universal Render Pipeline (URP)
 
 ## Projekt-Struktur
 
@@ -40,7 +40,7 @@ BusSimulator/
 
 ## Setup
 
-1. Unity 2022 LTS installieren
+1. Unity 6.5 (6000.5.6f1, 2026 Supported Release) installieren
 2. Project clonen: `git clone <repo>`
 3. In Unity Hub über **Add project from repository** `Querbox/BusSimulator` und Branch `main` auswählen oder den geklonten Ordner öffnen. Unity erkennt das Repository durch `ProjectSettings/ProjectVersion.txt` automatisch als Unity-Projekt.
 4. In Unity öffnen

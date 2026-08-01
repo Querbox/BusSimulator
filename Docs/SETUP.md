@@ -2,7 +2,7 @@
 
 ## Voraussetzungen
 
-- Unity 2022 LTS oder neuer
+- Unity 6.5 (6000.5.6f1) oder neuer
 - Git installiert
 - mindestens 5 GB freier Speicherplatz
 

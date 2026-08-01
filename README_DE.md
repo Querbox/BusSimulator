@@ -88,7 +88,7 @@ Dieses Repository enthält die Unity-Projektmarker `ProjectSettings/ProjectVersi
 
 ## 🛠️ Technologie-Stack
 
-- **Engine**: Unity 2022 LTS
+- **Engine**: Unity 6.5 (6000.5.6f1, 2026 Supported Release)
 - **Sprache**: C#
 - **Kartendaten**: OpenStreetMap (OSM)
 - **Physik**: Unity Rigidbody
