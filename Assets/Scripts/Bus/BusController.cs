@@ -34,8 +34,8 @@ public class BusController : MonoBehaviour
     private void HandleInput()
     {
         // Beschleunigung / Bremse
-        float throttle = Input.GetAxis("Vertical");
-        float brake = Input.GetKey(KeyCode.Space) ? 1f : 0f;
+        float throttle = InputSystemControls.GetThrottle();
+        float brake = InputSystemControls.IsBrakePressed() ? 1f : 0f;
         
         if (throttle > 0)
         {
@@ -52,7 +52,7 @@ public class BusController : MonoBehaviour
         }
         
         // Lenkung
-        currentSteering = Input.GetAxis("Horizontal") * steeringSensitivity;
+        currentSteering = InputSystemControls.GetSteering() * steeringSensitivity;
     }
     
     private void UpdateBusMovement()

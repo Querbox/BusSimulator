@@ -80,10 +80,11 @@ public class CameraController : MonoBehaviour
         mainCamera.transform.LookAt(busTransform.position + busTransform.forward * 20f + Vector3.up * 1f);
 
         // Optionale Mouse-Look für freie Kamerarotation
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (InputSystemControls.IsAltPressed())
         {
-            mouseX += Input.GetAxis("Mouse X") * mouseSensitivity;
-            mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+            Vector2 mouseDelta = InputSystemControls.GetMouseDelta();
+            mouseX += mouseDelta.x * mouseSensitivity;
+            mouseY -= mouseDelta.y * mouseSensitivity;
             mouseY = Mathf.Clamp(mouseY, -30f, 30f);
 
             mainCamera.transform.RotateAround(busTransform.position, Vector3.up, mouseX * Time.deltaTime);
@@ -153,17 +154,17 @@ public class CameraController : MonoBehaviour
 
     private void HandleCameraModeInput()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (InputSystemControls.WasCameraCyclePressed())
         {
             int modeCount = System.Enum.GetValues(typeof(CameraMode)).Length;
             currentMode = (CameraMode)(((int)currentMode + 1) % modeCount);
             Debug.Log($"Kamera-Modus: {currentMode}");
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad1)) currentMode = CameraMode.FirstPerson;
-        if (Input.GetKeyDown(KeyCode.Keypad2)) currentMode = CameraMode.ThirdPerson;
-        if (Input.GetKeyDown(KeyCode.Keypad3)) currentMode = CameraMode.Orbiting;
-        if (Input.GetKeyDown(KeyCode.Keypad4)) currentMode = CameraMode.Cinematic;
+        if (InputSystemControls.WasNumberPressed(1)) currentMode = CameraMode.FirstPerson;
+        if (InputSystemControls.WasNumberPressed(2)) currentMode = CameraMode.ThirdPerson;
+        if (InputSystemControls.WasNumberPressed(3)) currentMode = CameraMode.Orbiting;
+        if (InputSystemControls.WasNumberPressed(4)) currentMode = CameraMode.Cinematic;
     }
 
 

@@ -46,8 +46,8 @@ public class BusPhysicsController : MonoBehaviour
     private void HandleInput()
     {
         // Geschwindigkeit
-        float throttle = Input.GetAxis("Vertical");
-        bool braking = Input.GetKey(KeyCode.Space);
+        float throttle = InputSystemControls.GetThrottle();
+        bool braking = InputSystemControls.IsBrakePressed();
 
         if (throttle > 0.1f && engineRunning)
         {
@@ -68,10 +68,10 @@ public class BusPhysicsController : MonoBehaviour
         }
 
         // Lenkung
-        currentSteering = Input.GetAxis("Horizontal") * steeringSensitivity;
+        currentSteering = InputSystemControls.GetSteering() * steeringSensitivity;
 
         // Motor Start/Stop
-        if (Input.GetKeyDown(KeyCode.E))
+        if (InputSystemControls.WasEngineTogglePressed())
         {
             engineRunning = !engineRunning;
             Debug.Log(engineRunning ? "Motor läuft" : "Motor aus");
