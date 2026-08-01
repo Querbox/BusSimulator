@@ -52,7 +52,7 @@ public class SceneInitializer : MonoBehaviour
         // Rigidbody
         Rigidbody rb = busInstance.AddComponent<Rigidbody>();
         rb.mass = 12000f;
-        rb.drag = 0.1f;
+        rb.linearDamping = 0.1f;
 
         Debug.Log($"Bus gespawnt bei {spawnPos}");
     }

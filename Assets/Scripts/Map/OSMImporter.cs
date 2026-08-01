@@ -8,7 +8,6 @@ using System.Linq;
 /// </summary>
 public class OSMImporter : MonoBehaviour
 {
-    [System.Serializable]
     public class OSMNode
     {
         public long id;
@@ -17,7 +16,6 @@ public class OSMImporter : MonoBehaviour
         public Dictionary<string, string> tags = new Dictionary<string, string>();
     }
 
-    [System.Serializable]
     public class OSMWay
     {
         public long id;
@@ -25,7 +23,6 @@ public class OSMImporter : MonoBehaviour
         public Dictionary<string, string> tags = new Dictionary<string, string>();
     }
 
-    [System.Serializable]
     public class OSMData
     {
         public List<OSMNode> nodes = new List<OSMNode>();

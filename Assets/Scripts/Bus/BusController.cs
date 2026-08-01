@@ -61,7 +61,7 @@ public class BusController : MonoBehaviour
         
         // Bewegung nach vorne
         Vector3 moveDirection = transform.forward * currentSpeed * Time.deltaTime;
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, moveDirection.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, moveDirection.z);
         
         // Rotation
         float rotationAmount = currentSteering * turnSpeed * Time.deltaTime;

@@ -27,8 +27,8 @@ public class BusPhysicsController : MonoBehaviour
         {
             rb = gameObject.AddComponent<Rigidbody>();
             rb.mass = 12000f; // Busgewicht ca. 12 Tonnen
-            rb.drag = 0.1f;
-            rb.angularDrag = 0.1f;
+            rb.linearDamping = 0.1f;
+            rb.angularDamping = 0.1f;
         }
     }
 
@@ -85,7 +85,7 @@ public class BusPhysicsController : MonoBehaviour
 
         // Bewegung
         Vector3 moveDirection = transform.forward * currentSpeed * Time.fixedDeltaTime / 3.6f; // km/h zu m/s
-        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
 
         // Rotation
         float rotationAmount = currentSteering * turnSpeed * Time.fixedDeltaTime * (currentSpeed / maxSpeed);

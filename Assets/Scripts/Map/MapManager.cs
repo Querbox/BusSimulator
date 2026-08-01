@@ -29,7 +29,7 @@ public class MapManager : MonoBehaviour
     {
         // TODO: OSM-Datei laden und in Unity-Geometrie konvertieren
         // Für jetzt: Platzhalter-Implementierung
-        Debug.Log($"Lade OSM-Daten von: {osmDataPath}");
+        Debug.Log($"Lade OSM-Daten von: {osmDataPath} mit Skalierung {mapScale}");
     }
     
     private void GenerateHaltestellen()

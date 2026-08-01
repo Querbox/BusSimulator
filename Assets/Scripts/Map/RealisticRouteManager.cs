@@ -87,7 +87,7 @@ public class RealisticRouteManager : MonoBehaviour
 
         try
         {
-            busNetworkData = JsonUtility.FromJson<BusNetworkData>(jsonFile.text);
+            busNetworkData = UnityEngine.JsonUtility.FromJson<BusNetworkData>(jsonFile.text);
             
             // Stopps in Dictionary laden
             foreach (var stop in busNetworkData.stops)
