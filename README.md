@@ -56,9 +56,9 @@ BusSimulator/
 ## Fehlerbehebung: Paket- und Compiler-Cache
 
 Wenn Unity meldet, dass unveränderliche Pakete unerwartet geändert wurden,
-ein entferntes Paket wie `com.unity.inputsystem` weiterhin kompiliert oder
-`UnityEngine.UI` trotz des Eintrags in `Packages/manifest.json` nicht gefunden
-wird, ist in der Regel der generierte lokale Paket- oder Bee-Cache beschädigt. Der fehlende
+oder wenn `UnityEngine.InputSystem` beziehungsweise `UnityEngine.UI` trotz der
+Einträge in `Packages/manifest.json` nicht gefunden werden, ist in der Regel der
+generierte lokale Paket- oder Bee-Cache beschädigt. Der fehlende
 `updates.txt`-Hinweis ist dabei ein Folgefehler des fehlgeschlagenen
 Kompilierungslaufs.
 
