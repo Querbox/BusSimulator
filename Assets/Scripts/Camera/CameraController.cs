@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (busTransform == null) return;
+        if (busTransform == null || mainCamera == null) return;
 
         switch (currentMode)
         {

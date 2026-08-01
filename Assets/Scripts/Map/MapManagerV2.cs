@@ -47,6 +47,7 @@ public class MapManagerV2 : MonoBehaviour
 
         foreach (var stop in stops)
         {
+            if (stop == null) continue;
             Vector3 worldPos = routeManager.LatLonToWorldPos(stop.lat, stop.lon);
             GameObject stopObj = new GameObject(stop.name);
             stopObj.transform.parent = stopsContainer.transform;
@@ -66,6 +67,8 @@ public class MapManagerV2 : MonoBehaviour
 
         foreach (var route in routes)
         {
+            if (route == null || route.stops == null || route.stops.Length == 0) continue;
+
             GameObject routeObj = new GameObject($"Route_{route.id}");
             routeObj.transform.parent = routesContainer.transform;
 
@@ -76,18 +79,19 @@ public class MapManagerV2 : MonoBehaviour
             lineRenderer.startWidth = 0.2f;
             lineRenderer.endWidth = 0.2f;
 
-            Vector3[] positions = new Vector3[route.stops.Length];
-            for (int i = 0; i < route.stops.Length; i++)
+            var positions = new System.Collections.Generic.List<Vector3>(route.stops.Length);
+            foreach (var stopReference in route.stops)
             {
-                var stop = routeManager.GetStop(route.stops[i].stop_id);
+                if (stopReference == null) continue;
+                var stop = routeManager.GetStop(stopReference.stop_id);
                 if (stop != null)
                 {
-                    positions[i] = routeManager.LatLonToWorldPos(stop.lat, stop.lon);
+                    positions.Add(routeManager.LatLonToWorldPos(stop.lat, stop.lon));
                 }
             }
 
-            lineRenderer.positionCount = positions.Length;
-            lineRenderer.SetPositions(positions);
+            lineRenderer.positionCount = positions.Count;
+            lineRenderer.SetPositions(positions.ToArray());
 
             Debug.Log($"Route gezeichnet: {route.name}");
         }

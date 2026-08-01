@@ -53,6 +53,32 @@ BusSimulator/
 5. Scene laden: `Assets/Scenes/Main.unity`
 6. Play drücken! 🎮
 
+## Fehlerbehebung: Paket- und Compiler-Cache
+
+Wenn Unity meldet, dass unveränderliche Pakete unerwartet geändert wurden,
+oder wenn `UnityEngine.InputSystem` beziehungsweise `UnityEngine.UI` trotz der
+Einträge in `Packages/manifest.json` nicht gefunden werden, ist in der Regel der
+generierte lokale Paket- oder Bee-Cache beschädigt. Der fehlende
+`updates.txt`-Hinweis ist dabei ein Folgefehler des fehlgeschlagenen
+Kompilierungslaufs.
+
+1. Unity und Unity Hub für dieses Projekt schließen.
+2. Im Projektordner ausführen:
+
+   ```bash
+   ./Tools/reset-unity-package-cache.sh
+   ```
+
+3. Das Projekt mit der in `ProjectSettings/ProjectVersion.txt` angegebenen
+   Editorversion erneut öffnen und die Wiederherstellung sowie den vollständigen
+   Asset-Import abwarten.
+
+Das Skript entfernt ausschließlich den ignorierten, von Unity erzeugten
+`Library`-Ordner. Projektinhalte unter `Assets`, die Paketanforderungen unter
+`Packages` und Projekteinstellungen bleiben erhalten. Dateien, die Unity im
+Package-Manager unter `Packages/com.unity.*` anzeigt, sollten nicht von Hand
+bearbeitet werden.
+
 ## Lizenz
 
 Private

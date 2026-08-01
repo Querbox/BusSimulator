@@ -23,6 +23,12 @@ public class NavigationSystem : MonoBehaviour
 
     public void StartRoute(string routeId)
     {
+        if (routeManager == null)
+        {
+            Debug.LogError("Navigation kann ohne RealisticRouteManager nicht gestartet werden.");
+            return;
+        }
+
         currentRoute = routeManager.GetRoute(routeId);
         if (currentRoute == null)
         {
@@ -34,8 +40,9 @@ public class NavigationSystem : MonoBehaviour
         currentStopIndex = 0;
 
         // Lade alle Haltestellen der Route
-        foreach (var stopRef in currentRoute.stops)
+        foreach (var stopRef in currentRoute.stops ?? System.Array.Empty<StopReference>())
         {
+            if (stopRef == null || string.IsNullOrEmpty(stopRef.stop_id)) continue;
             var stop = routeManager.GetStop(stopRef.stop_id);
             if (stop != null)
                 routeStops.Add(stop);
@@ -80,6 +87,9 @@ public class NavigationSystem : MonoBehaviour
         if (nextStop == null || busTransform == null)
             return 0f;
 
+        if (routeManager == null)
+            return 0f;
+
         Vector3 nextStopPos = routeManager.LatLonToWorldPos(nextStop.lat, nextStop.lon);
         float distance = Vector3.Distance(busTransform.position, nextStopPos);
         return distance * 100f; // Konvertiere zu Metern (abhängig von Skalierung)
@@ -88,6 +98,9 @@ public class NavigationSystem : MonoBehaviour
     public float GetDirectionToNextStop()
     {
         if (nextStop == null || busTransform == null)
+            return 0f;
+
+        if (routeManager == null)
             return 0f;
 
         Vector3 nextStopPos = routeManager.LatLonToWorldPos(nextStop.lat, nextStop.lon);

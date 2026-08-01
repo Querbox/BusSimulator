@@ -96,9 +96,7 @@ public class SceneInitializerV2 : MonoBehaviour
     {
         GameObject depotManagerObj = new GameObject("DepotManager");
         DepotManager depotManager = depotManagerObj.AddComponent<DepotManager>();
-        
-        // Referenzen setzen
-        depotManager.GetComponent<DepotManager>().enabled = true;
+        depotManager.Configure(depot, playerBusController, busInstance.transform, cameraController);
         
         Debug.Log("✓ Depot-Manager aktiv - Wähle einen Bus!");
     }

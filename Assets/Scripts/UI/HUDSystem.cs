@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 /// <summary>
 /// Komplettes HUD-System für den Bus-Simulator
@@ -20,7 +19,6 @@ public class HUDSystem : MonoBehaviour
     private Text timeText;
     private Text nextStopText;
     private Text distanceText;
-    private Image speedometer;
     private Image navCompass;
     private Image fuelBar;
 
@@ -50,9 +48,6 @@ public class HUDSystem : MonoBehaviour
         Image speedPanelBg = speedPanelObj.GetComponent<Image>();
         speedPanelBg.color = new Color(0, 0, 0, 0.7f);
 
-        // Speedometer Kreis
-        speedometer = speedPanelObj.AddComponent<Image>();
-        speedometer.color = new Color(0.2f, 0.2f, 0.2f);
         speedText = CreateText(speedPanelObj, "Geschwindigkeit: 0 km/h", new Vector2(0, 30), 28);
         rpmText = CreateText(speedPanelObj, "RPM: 0", new Vector2(0, -20), 20);
 
@@ -160,7 +155,7 @@ public class HUDSystem : MonoBehaviour
 
         Text text = textObj.AddComponent<Text>();
         text.text = content;
-        text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         text.fontSize = fontSize;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
@@ -222,13 +217,11 @@ public class HUDSystem : MonoBehaviour
         barFillRect.offsetMax = Vector2.zero;
         Image barFillImage = barFillObj.AddComponent<Image>();
         barFillImage.color = new Color(0.2f, 1f, 0.2f);
+        barFillImage.type = Image.Type.Filled;
+        barFillImage.fillMethod = Image.FillMethod.Horizontal;
+        barFillImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+        barFillImage.fillAmount = 0.8f;
 
-        Image barImage = barBgObj.AddComponent<Image>();
-        barImage.type = Image.Type.Filled;
-        barImage.fillMethod = Image.FillMethod.Horizontal;
-        barImage.fillOrigin = (int)Image.OriginHorizontal.Left;
-        barImage.fillAmount = 0.8f;
-
-        return barImage;
+        return barFillImage;
     }
 }

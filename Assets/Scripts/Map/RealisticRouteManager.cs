@@ -99,6 +99,11 @@ public class RealisticRouteManager : MonoBehaviour
             // Stopps in Dictionary laden
             foreach (var stop in busNetworkData.stops)
             {
+                if (stop == null || string.IsNullOrEmpty(stop.id))
+                {
+                    Debug.LogWarning("Überspringe Haltestelle ohne gültige ID.");
+                    continue;
+                }
                 stopsDict[stop.id] = stop;
                 Debug.Log($"Haltestelle geladen: {stop.name} ({stop.id})");
             }
@@ -106,8 +111,13 @@ public class RealisticRouteManager : MonoBehaviour
             // Routen in Dictionary laden
             foreach (var route in busNetworkData.routes)
             {
+                if (route == null || string.IsNullOrEmpty(route.id))
+                {
+                    Debug.LogWarning("Überspringe Route ohne gültige ID.");
+                    continue;
+                }
                 routesDict[route.id] = route;
-                Debug.Log($"Route geladen: {route.name} mit {route.stops.Length} Haltestellen");
+                Debug.Log($"Route geladen: {route.name} mit {route.stops?.Length ?? 0} Haltestellen");
             }
 
             Debug.Log($"Busnetzwerk erfolgreich geladen! {busNetworkData.stops.Length} Haltestellen, {busNetworkData.routes.Length} Routen.");
@@ -123,6 +133,7 @@ public class RealisticRouteManager : MonoBehaviour
     /// </summary>
     public BusStop GetStop(string stopId)
     {
+        if (string.IsNullOrEmpty(stopId)) return null;
         if (stopsDict.TryGetValue(stopId, out var stop))
         {
             return stop;
@@ -144,6 +155,7 @@ public class RealisticRouteManager : MonoBehaviour
     /// </summary>
     public BusRoute GetRoute(string routeId)
     {
+        if (string.IsNullOrEmpty(routeId)) return null;
         if (routesDict.TryGetValue(routeId, out var route))
         {
             return route;
@@ -185,11 +197,12 @@ public class RealisticRouteManager : MonoBehaviour
         var route = GetRoute(routeId);
         if (route == null) return new string[0];
 
-        foreach (var timeTable in route.timetable)
+        foreach (var timeTable in route.timetable ?? Array.Empty<TimeTableEntry>())
         {
-            if (timeTable.day.Contains(dayType))
+            if (timeTable != null && !string.IsNullOrEmpty(timeTable.day) &&
+                !string.IsNullOrEmpty(dayType) && timeTable.day.Contains(dayType))
             {
-                return timeTable.departures;
+                return timeTable.departures ?? Array.Empty<string>();
             }
         }
         return new string[0];

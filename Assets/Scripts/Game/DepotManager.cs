@@ -143,5 +143,14 @@ public class DepotManager : MonoBehaviour
         }
     }
 
+    public void Configure(BusDepot depot, BusPhysicsController busController,
+        Transform busTransform, CameraController controller)
+    {
+        busDepot = depot;
+        playerBusController = busController;
+        playerBusTransform = busTransform;
+        cameraController = controller;
+    }
+
     public List<AvailableBus> GetAvailableBuses() => availableBuses;
 }
