@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// Auto-Setup Script - Richtet das komplette Spiel automatisch ein
