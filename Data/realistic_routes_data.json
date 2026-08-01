@@ -1,0 +1,236 @@
+# Realistische Buslinien und Haltestellen
+# Region: Hechingen, Boll, Burg Hohenzollern
+# Daten basieren auf ZVBW (Zweckverband Verkehrsbetriebe Balingen-Albstadt-Sigmaringen)
+
+{
+  "stops": [
+    {
+      "id": "HEC_001",
+      "name": "Hechingen Bahnhof",
+      "lat": 48.3767,
+      "lon": 8.7544,
+      "description": "Hauptbahnhof Hechingen - Zentrale Busstation",
+      "type": "main_station"
+    },
+    {
+      "id": "HEC_002",
+      "name": "Hechingen Marktplatz",
+      "lat": 48.3780,
+      "lon": 8.7558,
+      "description": "Zentrum Hechingen",
+      "type": "city_center"
+    },
+    {
+      "id": "HEC_003",
+      "name": "Hechingen Schulzentrum",
+      "lat": 48.3725,
+      "lon": 8.7620,
+      "description": "Gymnasium und Realschule",
+      "type": "school"
+    },
+    {
+      "id": "HEC_004",
+      "name": "Hechingen Am Hang",
+      "lat": 48.3650,
+      "lon": 8.7500,
+      "description": "Wohngebiet Am Hang",
+      "type": "residential"
+    },
+    {
+      "id": "HEC_005",
+      "name": "Hechingen Zum Biegel",
+      "lat": 48.3695,
+      "lon": 8.7450,
+      "description": "Gewerbegebiet",
+      "type": "industrial"
+    },
+    {
+      "id": "BOLL_001",
+      "name": "Boll Ortsmitte",
+      "lat": 48.3850,
+      "lon": 8.7750,
+      "description": "Zentrum von Boll",
+      "type": "village_center"
+    },
+    {
+      "id": "BOLL_002",
+      "name": "Boll Kirche",
+      "lat": 48.3865,
+      "lon": 8.7760,
+      "description": "Kirche in Boll",
+      "type": "landmark"
+    },
+    {
+      "id": "HOHENZ_001",
+      "name": "Burg Hohenzollern",
+      "lat": 48.3333,
+      "lon": 8.8047,
+      "description": "Burg Hohenzollern - Touristische Attraktion",
+      "type": "tourist_attraction"
+    },
+    {
+      "id": "HOHENZ_002",
+      "name": "Burg Hohenzollern Parkplatz",
+      "lat": 48.3355,
+      "lon": 8.8030,
+      "description": "Parkplatz und Busstation für Burg Hohenzollern",
+      "type": "parking"
+    }
+  ],
+  "routes": [
+    {
+      "id": "R_753",
+      "name": "Linie 753",
+      "operator": "ZVBW",
+      "description": "Hechingen - Boll - Burg Hohenzollern",
+      "type": "regional_bus",
+      "stops": [
+        {
+          "order": 1,
+          "stop_id": "HEC_001",
+          "arrival_offset_minutes": 0,
+          "departure_offset_minutes": 0,
+          "type": "start"
+        },
+        {
+          "order": 2,
+          "stop_id": "HEC_002",
+          "arrival_offset_minutes": 3,
+          "departure_offset_minutes": 4,
+          "type": "stop"
+        },
+        {
+          "order": 3,
+          "stop_id": "HEC_003",
+          "arrival_offset_minutes": 8,
+          "departure_offset_minutes": 9,
+          "type": "stop"
+        },
+        {
+          "order": 4,
+          "stop_id": "BOLL_001",
+          "arrival_offset_minutes": 18,
+          "departure_offset_minutes": 20,
+          "type": "stop"
+        },
+        {
+          "order": 5,
+          "stop_id": "BOLL_002",
+          "arrival_offset_minutes": 22,
+          "departure_offset_minutes": 23,
+          "type": "stop"
+        },
+        {
+          "order": 6,
+          "stop_id": "HOHENZ_002",
+          "arrival_offset_minutes": 32,
+          "departure_offset_minutes": 35,
+          "type": "stop"
+        },
+        {
+          "order": 7,
+          "stop_id": "HOHENZ_001",
+          "arrival_offset_minutes": 37,
+          "departure_offset_minutes": 37,
+          "type": "end"
+        }
+      ],
+      "timetable": [
+        {"day": "Monday-Friday", "departures": ["08:15", "10:45", "13:30", "15:45", "17:30", "19:00"]},
+        {"day": "Saturday", "departures": ["09:00", "11:30", "14:00", "16:30", "18:00"]},
+        {"day": "Sunday", "departures": ["09:30", "12:00", "14:30", "17:00"]}
+      ]
+    },
+    {
+      "id": "R_752",
+      "name": "Linie 752",
+      "operator": "ZVBW",
+      "description": "Hechingen Schulverkehr",
+      "type": "school_bus",
+      "stops": [
+        {
+          "order": 1,
+          "stop_id": "HEC_001",
+          "arrival_offset_minutes": 0,
+          "departure_offset_minutes": 0,
+          "type": "start"
+        },
+        {
+          "order": 2,
+          "stop_id": "HEC_005",
+          "arrival_offset_minutes": 5,
+          "departure_offset_minutes": 6,
+          "type": "stop"
+        },
+        {
+          "order": 3,
+          "stop_id": "HEC_004",
+          "arrival_offset_minutes": 10,
+          "departure_offset_minutes": 11,
+          "type": "stop"
+        },
+        {
+          "order": 4,
+          "stop_id": "HEC_003",
+          "arrival_offset_minutes": 15,
+          "departure_offset_minutes": 15,
+          "type": "end"
+        }
+      ],
+      "timetable": [
+        {"day": "Monday-Friday", "departures": ["07:30", "08:00", "13:15", "13:45"]},
+        {"day": "Saturday", "departures": []},
+        {"day": "Sunday", "departures": []}
+      ]
+    },
+    {
+      "id": "R_754",
+      "name": "Linie 754",
+      "operator": "ZVBW",
+      "description": "Hechingen - Burg Hohenzollern Direktverbindung (Touristen)",
+      "type": "tourist_bus",
+      "stops": [
+        {
+          "order": 1,
+          "stop_id": "HEC_001",
+          "arrival_offset_minutes": 0,
+          "departure_offset_minutes": 0,
+          "type": "start"
+        },
+        {
+          "order": 2,
+          "stop_id": "HEC_002",
+          "arrival_offset_minutes": 3,
+          "departure_offset_minutes": 4,
+          "type": "stop"
+        },
+        {
+          "order": 3,
+          "stop_id": "HOHENZ_002",
+          "arrival_offset_minutes": 20,
+          "departure_offset_minutes": 20,
+          "type": "stop"
+        },
+        {
+          "order": 4,
+          "stop_id": "HOHENZ_001",
+          "arrival_offset_minutes": 22,
+          "departure_offset_minutes": 22,
+          "type": "end"
+        }
+      ],
+      "timetable": [
+        {"day": "Monday-Friday", "departures": ["10:00", "14:00", "16:00"]},
+        {"day": "Saturday", "departures": ["09:00", "11:00", "13:00", "15:00", "17:00"]},
+        {"day": "Sunday", "departures": ["10:00", "12:00", "14:00", "16:00", "18:00"]}
+      ]
+    }
+  ],
+  "metadata": {
+    "region": "Zollernalb, Baden-Württemberg",
+    "country": "Germany",
+    "data_source": "ZVBW / OpenStreetMap",
+    "last_updated": "2026-08-01",
+    "note": "Diese Daten sind fiktiv für Demonstrationszwecke. Für Produktionsumgebung echte Daten vom ZVBW verwenden."
+  }
+}
